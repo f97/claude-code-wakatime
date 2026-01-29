@@ -8,7 +8,7 @@ Track your AI usage, lines of code generated, time spent prompting AI, etc. usin
 
 ### Using the Claude Code Plugin System (Recommended)
 
-1. `claude plugin marketplace add https://github.com/wakatime/claude-code-wakatime.git`
+1. `claude plugin marketplace add https://github.com/f97/claude-code-wakatime.git`
 
 2. `claude plugin i claude-code-wakatime@wakatime`
 
@@ -33,7 +33,7 @@ Visit [https://wakatime.com][wakatime.com] to see your coding activity.
 ## Development
 
 ```bash
-npm run watch
+bun run watch
 ```
 
 ## Troubleshooting
@@ -44,7 +44,13 @@ Diagnostic tool for troubleshooting the installation and health of Claude Code a
 claude doctor
 ```
 
-Make sure you have node.js installed and in your `$PATH`:
+Make sure you have bun installed and in your `$PATH`:
+
+```bash
+bun --version
+```
+
+Alternatively, you can use node.js:
 
 ```bash
 node -v

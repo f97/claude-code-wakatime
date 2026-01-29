@@ -6,18 +6,18 @@
     "claude-code-wakatime": "dist/index.js"
   },
   "scripts": {
-    "postinstall": "node dist/install-hooks.js",
-    "prebuild": "node scripts/generate-version.js",
-    "build:legacy": "esbuild src/install-hooks.ts --bundle --platform=node --outfile=dist/install-hooks.js",
-    "build": "npm run build:legacy && esbuild src/index.ts --bundle --platform=node --outfile=dist/index.js",
-    "watch": "npm run prebuild && tsc --watch",
-    "release:major": "npm version major && npm run build && npm publish && git commit -am \"build release\" && git push && git push --tags",
-    "release:minor": "npm version minor && npm run build && npm publish && git commit -am \"build release\" && git push && git push --tags",
-    "release:patch": "npm version patch && npm run build && npm publish && git commit -am \"build release\" && git push && git push --tags"
+    "postinstall": "bun dist/install-hooks.js",
+    "prebuild": "bun scripts/generate-version.js",
+    "build:legacy": "bun build src/install-hooks.ts --target=node --outfile=dist/install-hooks.js",
+    "build": "bun run build:legacy && bun build src/index.ts --target=node --outfile=dist/index.js",
+    "watch": "bun run prebuild && tsc --watch",
+    "release:major": "npm version major && bun run build && npm publish && git commit -am \"build release\" && git push && git push --tags",
+    "release:minor": "npm version minor && bun run build && npm publish && git commit -am \"build release\" && git push && git push --tags",
+    "release:patch": "npm version patch && bun run build && npm publish && git commit -am \"build release\" && git push && git push --tags"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wakatime/claude-code-wakatime.git"
+    "url": "git+https://github.com/f97/claude-code-wakatime.git"
   },
   "keywords": [
     "claude",
@@ -27,19 +27,13 @@
   ],
   "devDependencies": {
     "@types/adm-zip": "^0.5.7",
-    "@types/azdata": "^1.46.6",
-    "@types/eslint": "^8.44.7",
     "@types/node": "^20.9.2",
-    "@types/pidusage": "^2.0.5",
-    "@types/prettier": "^2.7.3",
     "@types/request": "^2.48.12",
     "@types/semver": "^7.7.0",
     "@types/which": "^3.0.4",
     "@typescript-eslint/eslint-plugin": "6.11.0",
     "@typescript-eslint/parser": "6.11.0",
     "adm-zip": "0.5.16",
-    "azdata": "^1.0.0",
-    "esbuild": "^0.25.12",
     "eslint": "^8.54.0",
     "prettier": "^3.1.0",
     "request": "2.88.2",
@@ -50,7 +44,7 @@
   "author": "WakaTime",
   "license": "BSD-3-Clause",
   "bugs": {
-    "url": "https://github.com/wakatime/claude-code-wakatime/issues"
+    "url": "https://github.com/f97/claude-code-wakatime/issues"
   },
-  "homepage": "https://github.com/wakatime/claude-code-wakatime#readme"
+  "homepage": "https://github.com/f97/claude-code-wakatime#readme"
 }
