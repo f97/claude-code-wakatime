@@ -153,7 +153,7 @@ export class Dependencies {
       url: this.githubReleasesUrl,
       json: true,
       headers: {
-        'User-Agent': 'github.com/wakatime/claude-code-wakatime',
+        'User-Agent': 'github.com/f97/claude-code-wakatime',
       },
     };
     this.logger.debug(`Fetching latest wakatime-cli version from GitHub API: ${options.url}`);

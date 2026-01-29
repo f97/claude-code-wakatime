@@ -3,23 +3,32 @@ set -eu
 
 ROOT="${CLAUDE_PLUGIN_ROOT:-$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)}"
 
-# If user provides an explicit node path, use it
+# If user provides an explicit bun path, use it
+if [ -n "${BUN_BIN:-}" ] && [ -x "${BUN_BIN}" ]; then
+  exec "${BUN_BIN}" "$ROOT/dist/index.js" "$@"
+fi
+
+# If bun exists, use it
+if command -v bun >/dev/null 2>&1; then
+  exec bun "$ROOT/dist/index.js" "$@"
+fi
+
+# Fallback to node if available
 if [ -n "${NODE_BIN:-}" ] && [ -x "${NODE_BIN}" ]; then
   exec "${NODE_BIN}" "$ROOT/dist/index.js" "$@"
 fi
 
-# If node exists anyway, use it
 if command -v node >/dev/null 2>&1; then
   exec node "$ROOT/dist/index.js" "$@"
 fi
 
-# NixOS bootstrap: run node from nixpkgs (flakes)
+# NixOS bootstrap: run bun from nixpkgs (flakes)
 if command -v nix >/dev/null 2>&1; then
-  exec nix run nixpkgs#nodejs -- node "$ROOT/dist/index.js" "$@"
+  exec nix run nixpkgs#bun -- bun "$ROOT/dist/index.js" "$@"
 fi
 
-echo "Error: Node.js not found. Is node in your PATH?
-- The WakaTime Claude Code plugin requires Node to run.
-- set NODE_BIN=/absolute/path/to/node, or if using NixOS
-- ensure 'nix' is available and flakes are enabled." >&2
+echo "Error: Bun or Node.js not found. Is bun or node in your PATH?
+- The WakaTime Claude Code plugin requires Bun or Node to run.
+- set BUN_BIN=/absolute/path/to/bun, or NODE_BIN=/absolute/path/to/node
+- or if using NixOS ensure 'nix' is available and flakes are enabled." >&2
 exit 127
